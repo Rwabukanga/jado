@@ -1,0 +1,178 @@
+
+<html>
+<head>
+<meta charset="utf-8">
+		<title>RegistrationForm_v1 by Colorlib</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="assets/css/form.css">
+		
+</head>
+<body>		
+		
+<div class="wrapper" style="background-image: url('images/bg-registration-form-1.jpg');">
+			<div class="inner">
+				<div class="image-holder">
+					<img src="images/registration-form-1.jpg" alt="">
+				</div>
+				<form id="r_form" action="" required="required">
+					<h3>Registration Form</h3>
+					<div class="form-group" style="font-weight: 30">
+						<input type="text" id= "r_firstname" placeholder="First Name" class="form-control" required="required"  >
+						<input type="text" id= "r_lastname" placeholder="Last Name" class="form-control" required="required">
+					</div>
+					<div class="form-wrapper">
+						<input type="text" id=r_username placeholder="Username" class="form-control" required= "required">
+						<i class="zmdi zmdi-account"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="text" id= "r_email" placeholder="Email Address" class="form-control">
+						<i class="zmdi zmdi-email"></i>
+					</div>
+					<div class="form-wrapper">
+						<select name="" id="r_gender" class="form-control" required= "required">
+							<option value="" disabled selected>Gender</option>
+							<option value="male">Male</option>
+							<option value="femal">Female</option>
+							<option value="other">Other</option>
+						</select>
+						<i class="zmdi zmdi-caret-down" style="font-size: 15px"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="password" id="r_password" placeholder="Password" class="form-control" required="required">
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					
+					<div class="form-wrapper">
+						<input type="date" id="r_dateofbirth" placeholder="DateOfBitrth" class="form-control" required="required">
+						
+					</div>
+					<div class="form-wrapper">
+						<input type="number" id="r_phonenumber" placeholder="Phone Number" class="form-control" required="required">
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					
+					<button type="submit"><a  id="r_Save">save
+						<i class="zmdi zmdi-arrow-right"></i></a>
+					</button>
+				</form>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="Alert/alert.js"></script>	
+		<script type="text/javascript" src="Alert/jquery.validate.js"></script>	
+		<script type="text/javascript" src="js/User.js"></script>			
+		<script>
+		
+		 function olhs_url() {
+		      var olhs_url = "http://localhost:4001";
+
+		      return olhs_url;
+		    }
+		 function myfunction(){
+				var x=document.getElementById("r_password");
+				
+				if(x.type==="password"){
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+			}
+		
+		 $(document).on('click','#r_Save', function(){
+			alert("hello");
+			 var FirstName= $('#r_firstname').val();
+			 var LastName= $('#r_lastname').val();
+			 var Username= $('#r_username').val();
+			 var Password= $('#r_password').val();
+			 var PhoneNumber= $('#r_phonenumber').val();
+	         var DateOfBirth= $('#r_dateofbirth').val();
+	         var Email= $('#r_email');
+			 var role = 'SuperAdministrator';
+			 if($("#r_form").valid()){
+				 $("#r_Save").addClass('disabled');
+				 
+				 var SuperAdministrator={
+						 firstname: FirstName,
+				         lastname: LastName,
+				         username: Username,
+				         PhoneNumber: PhoneNumber,
+				         dateofbirth: DateOfBirth,
+				         email: Email,
+				         applicationName:'OLHS',
+				         password: Password,
+				         role: role,
+				         category: $('#r_Category').val(),
+				 }
+				 console.log(SuperAdministrator);
+				 $.ajax({ 
+				        
+						headers: {
+					        
+		                   //'olhs_token': 'OLHS'+formatDate(new Date(), "dd-MM-yyyy"),
+					        'doneBy':Username
+					    },
+						url:olhs_url()+'/registrar/savewithsuperadmin', 
+				        type : "POST", // type of action POST || GET
+				        dataType : 'json', // data type
+				        data : JSON.stringify(SuperAdministrator), // post data || get data
+				        contentType: 'application/json',
+				        success : function(result, textStatus, jQxhr) {
+				        	$("#r_Save").removeClass('disabled');
+				        	if(result.CODE==200){
+				     
+				        		$.alert(result.DESCRIPTION,
+										{
+											type : "success",
+											position : [ 'top-right',
+													[ -0.42, 0 ] ],
+										}); 
+					        	
+					        	$("#r_form").each(
+										function() {
+											this.reset();
+										});
+					        	 
+					        	}else{
+					        		 $.alert(result.DESCRIPTION,
+											{
+												type : "danger",
+												position : [ 'top-right',
+														[ -0.42, 0 ] ],
+											}); 
+					        	}
+					        		
+				        	
+
+								
+
+							},
+							error: function (xhr, resp, text) {
+								console.log(xhr, resp, text);
+								$("#r_Save").removeClass('disabled');
+								$.alert('Error Occurred' + xhr.responseText, {
+									type: "danger",
+									position: ['top-right',
+										[-0.42, 0]
+									],
+								});
+
+							}
+						});
+
+				
+					
+				
+
+		 }
+			
+		 });
+		
+		</script>
+
+</body>
+</html>

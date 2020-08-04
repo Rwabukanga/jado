@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+
+<body>
+
+<div class="row">
+		  <div class="col-md-12">
+							<div id="register">
+							
+							 
+							 <form onsubmit="tablebranch" class="form-horizontal" id="r_form">
+							  <fieldset>
+                                    <legend>BranchUSER</legend>
+                                 	<div class="row">
+		                              			
+					
+                                    <div class="col-md-6">
+                                    <div class="form-group ">
+                                            <label class="col-md-4 control-label">FirstName</label>
+                                            <div class=" col-md-8">
+                                                <input type="text" name="firstname" class="form-control" id="r_firstname" placeholder="name" required="required"/>
+                                                
+                                            </div>
+                                        </div>
+                                        </div>
+                                 <div class="col-md-6">
+                                    <div class="form-group ">
+                                            <label class="col-md-4 control-label">LastName</label>
+                                            <div class=" col-md-8">
+                                                <input type="text" name="lastname" class="form-control" id="r_lastname" placeholder="lastname" required="required"/>
+                                                
+                                            </div>
+                                        </div>
+                                        </div>
+                                       </div>
+                                        
+                                     
+                                     <div class="row">
+                                      
+                                       <div class="col-md-6">    
+                                   <div class="form-group ">
+                                            <label class="col-md-4 control-label">UserName</label>
+                                            <div class="col-md-8">
+                                                  <input type="text" name="username" class="form-control" id="r_username" placeholder="username" required="required"/>
+                                            </div>
+                                        </div>     
+                                           
+                                        </div> 
+                   
+                                        </div>
+                                        
+                                        
+                                        
+                                     </fieldset>
+                                    
+                                        <div class="row">
+                                       <div class="col-md-12">
+											
+                                        <div class="form-group col-md-12">
+                                            
+                                            <div class="col-md-6">
+                                                <div class="form-actions">
+                                                    <input type="button" id="r_save" class="btn btn-primary" value="submit">
+                                                    <a href="login" class="btn btn-danger pull-left">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         </div>
+                                          <div class="col-md-12">
+											
+                                        <div class="form-group col-md-12">
+                                            
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                               <select id=r_branch>
+                                               
+                                               
+                                               </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         </div>
+                                         
+                                         </div>
+                                         
+                                         
+                                        
+                                    </form>
+							</div>	
+								
+							</div>
+							</div>
+					
+	
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="Alert/alert.js"></script>	
+<script type="text/javascript" src="Alert/jquery.validate.js"></script>	
+	
+		
+		<script>
+		/* $(function(){
+			
+			 
+		});
+		 */
+		 function olhs_url() {
+		      var olhs_url = "http://localhost:4001";
+
+		      return olhs_url;
+		    }
+		 
+		$(document).ready(function(){
+			
+			 RetrieveBranches();
+			 
+		});
+		
+		 function RetrieveBranches() {
+				
+				$.ajax({
+					url: olhs_url() + '/branchs',
+					type: "GET", // type of action POST || GET
+					dataType: 'json', // data type
+			
+					data: {}, // post data || get data
+					contentType: 'application/json',
+					success: function (result, textStatus, jQxhr) {
+						console.log(result);
+						if (result.code==200) {
+						//	 console.log(result)
+						   
+						var branches=result.OBJECT;
+						 
+							
+							  $('#r_branch').children('option').remove();
+								$.each(branches, function (i, item) {
+									$('#r_branch').append($('<option></option>', {
+										value: item.uuid,
+										text: item.branchname
+									}));
+								});
+				        		
+								
+						
+						} else {
+							
+							$.alert(result.DESCRIPTION, {
+								type: "danger",
+								position: ['center',
+									[-0.42, 0]
+								],
+							});
+						}
+					},
+					error: function (xhr, resp, text) {
+						console.log(xhr, resp, text);
+						$.alert('Error Occurred', {
+							type: "danger",
+							position: ['center',
+								[-0.42, 0]
+							],
+						});
+
+					}
+				})
+
+			}
+			
+			
+			
+		</script>		
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Sufee Admin - HTML5 Admin Template</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <div data-th-replace="Link/Css :: myCss"></div>
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+   <!--  <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+ -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+     <link href="/boot/css/bootstrap.min.css" rel="stylesheet"/>
+    -->
+   
+</head>
+<body>
+
+
+<script type="text/javascript" src="js/main.js"></script>	
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+    <!-- Left Panel -->
+ <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"/></a>
+                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"/></a>
+                 <ul>
+                        <li th:if="${session.a_user!=null}"><a href="#" id='logeed_in_user_name' th:utext="${session.a_user.getFname()}">OLHS </a></li>
+                        <li th:if="${session.a_user!=null}"><a href="#" id='logeed_in_user_name' th:utext="${session.a_user.getLname()}">OLHS </a></li>
+                         <li th:if="${session.a_user!=null}"><span th:if=" ${session.a_user.getRole().equalsIgnoreCase('superAdmin')}" ><a style="color:white; text-align:center;" href="#" id='logeed_in_user_role' th:utext="${session.a_user.getRole()}">OLHS </a></span></li>
+
+                    </ul>
+            </div>
+
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="/dashboard"><i class="zmdi zmdi-view-dashboard"></i><span class="list-label">Dashboard</span> </a>
+                    </li>
+                    <!--  <li th:if=" ${session.a_user.getRole().equalsIgnoreCase('superAdmin')}">
+                <a href="/dashboard"><i class="zmdi zmdi-accounts"></i><span class="list-label">Registrants</span></a>
+                <ul>
+                    <li><a href="/user">REGISTRANTS</a></li>
+                   
+                </ul>
+                </li> -->
+                <!--  <li th:if=" ${session.a_user.getRole().equalsIgnoreCase('superAdmin')}">
+                <a href="/dashboard"><i class="zmdi zmdi-map"></i><span class="list-label">LOCATIONS</span></a>
+                <ul>
+                    <li><a href="/province">PROVINCES</a></li>
+                      <li><a href="/district">DISTRICTS</a></li>
+                   
+                </ul>
+            </li> -->
+                    <!-- <h3 class="menu-title">UI elements</h3> --><!-- /.menu-title -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="/loginn" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Home</a>
+       
+                    </li> -->
+                    
+                    <li class="menu-item-has-children dropdown">
+                  
+                    
+                        <a href="/seller"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('superAdmin') }"> <i class="menu-icon fa fa-table"></i>Add Employee</span></a>
+                  
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                  
+                    
+                        <a href="/branch"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('superAdmin') }"> <i class="menu-icon fa fa-table"></i>Create Branch</span></a>
+                  
+                    </li>
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                        </ul>
+                    </li> -->
+                    <!-- <li class="menu-item-has-children dropdown">
+                    
+                    
+                     
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"> <i class="menu-icon fa fa-table"></i>Making Order</span></a>
+                       
+                    </li> -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="/order"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"><i class="menu-icon fa fa-table"></i>ViewProducts</span></a>
+                        
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"> <i class="menu-icon fa fa-table"></i>Assign Contract</span></a>
+                        
+                    </li>
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"> <i class="menu-icon fa fa-table"></i>Payment</span></a>
+                        
+                    </li> -->
+                    
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user') || session.a_user.getRole().toLowerCase().equalsIgnoreCase('superAdmin') }"> <i class="menu-icon fa fa-table"></i>Report</span></a>
+                        
+                    </li> -->
+
+                   <!--  <h3 class="menu-title">Icons</h3>/.menu-title
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
+                        
+                    </li> -->
+                    <!-- <li>
+                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
+                    </li> -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a></li>
+                            <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
+                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a></li>
+                        </ul>
+                    </li> -->
+
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
+                            <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
+                        </ul>
+                    </li> -->
+                    <!-- <h3 class="menu-title">Extras</h3> --><!-- /.menu-title -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
+                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+<!-- /#right-panel -->
+
+
+<div class="row" style="margin-top: 80px; margin-left: 80px;">
+        
+<div class="col-md-6 col-md-offset-3">
+            
+<div class = "panel panel-default">
+        
+<div class = "panel-heading" >
+<h1>SOLAR ENERGY PICTURES</h1>
+</div>
+<div class="card card-profile shadow mt--300">
+<div class="px-4">
+<div class="row justify-content-center">
+<div class="col-lg-3 order-lg-2">
+<div class="card-profile-image" id="profilePic">
+
+</div>
+</div>
+</div>
+          
+<div class="mt-2 py-3  m-2">
+<div class="row justify-content-center" style="margin-bottom: 15px;">
+<h4 style="color: #6cb33e"><i class="zmdi zmdi-account"></i>Solar Energy</h4>
+
+</div>
+<div class="my-2 py-2">
+<div class="row lm-5" id="solarr">
+
+
+
+ </div>            
+</div>
+</div>
+</div>
+</div>
+<div class="form-group col-md-12">
+<div class="col-md-12">
+ <div class="form-actions">
+<a href="enlist"  class="btn btn-primary pull-right" id="r_details"> <i class="zmdi zmdi-save"></i><span data-localize="save">Details</span></a>
+<a href="#" class="btn btn-default pull-left" data-dismiss="modal" data-localize="cancel">Send Order</a>
+</div>
+</div>
+</div>
+  
+</div>
+</div>
+</div>
+
+       
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="Alert/alert.js"></script>	
+<script type="text/javascript" src="Alert/jquery.validate.js"></script>	
+
+          
+ 
+    <script>
+        function olhs_url() {
+		      var olhs_url = "http://localhost:4001";
+
+		      return olhs_url;
+		    }
+
+          var object = {};
+        $(function (){
+            // alert(sessionStorage.getItem('a_registrant'));
+                 
+            $.ajax({
+              url: olhs_url() + "/solarenergy/all",
+              type: "GET", // type of action POST || GET
+              headers: {
+      	 /*  'olhs_token':'OLHS'+formatDate(new Date(), "dd-MM-yyyy"),   */
+      	
+              },
+              success: function (result, textStatus, jQxhr) {
+            	  console.log("saved");
+            	  solarenergys(result.OBJECT);
+                if (result.CODE == 200) {
+                  object=result.OBJECT;
+                  console.log(result.OBJECT)
+                  
+                } else {
+                  $.alert('Error Occurred ' + result.DESCRIPTION, {
+                    type: "danger",
+                    position: ['top-right',
+                      [-0.42, 0]
+                    ],
+                  });
+                }
+              },
+              error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+
+                $.alert('Error Occurred' + xhr.responseText, {
+                  type: "danger",
+                  position: ['top-right',
+                    [-0.42, 0]
+                  ],
+                });
+              }
+            });
+            
+        });
+        var defaultImg = "'images/default.jpg'"; 
+    
+        function solarenergys(solarenergy){
+    if (solarenergy.length > 0) {
+    	solarenergy.forEach(solar => {
+        var imgUrl = olhs_url() + "/pictures/se/" + solar.uuid;
+        $("#solarr").append(
+                '<div class="panel panel-primary col-md-4" style="width: 18rem;" id="pa"><img width="350px;" height="100px;" style="margin-bottom:5px;" class="card-img-top col-md-12 img-thumbnail" src="' +
+                imgUrl + '" onerror="this.onerror=null;this.src='+defaultImg+';"><div class="panel-body" style="margin-top:60px;"><h5 style="margin-bottom:8px;">'+
+                solar.description +
+                '</h5><a id="detail" href="#" data-id='+solar.uuid+ ' style="margin-top:20px;" class="label label-primary btn-sm">Details</a><a href="send_'+solar.uuid+' id="request" style="margin-right:20px; margin-left:5px; margin-top:20px;" class="label label-primary btn-xs">Send Request</a></div></div>'
+              )
+            });
+    } else {
+     // $("#products").append(' <div class="card shadow p-3"> Lawyers not yet available</div>');
+     
+    }
+  }
+        
+        
+        $(document).on('click','#request', function(){
+        	var uuid=$(this).data('id');
+        	$("#request").attr("href","send_"+uuid);
+			
+        });
+
+</script>
+        
+        
+</body>
+</html>

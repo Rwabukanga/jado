@@ -1,0 +1,641 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Sufee Admin - HTML5 Admin Template</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <div data-th-replace="Link/Css :: myCss"></div>
+    <link type="text/css" href= "c3/css/c3.min.css">
+    <style>
+    #memberpieChart{
+    
+    width: 500px;
+    height:400px;
+    margin-right: 200px;
+    }
+    
+    
+      #memberpieChart1{
+    
+    width: 500px;
+    height:400px;
+  
+    }
+    
+    #memberpieChart2{
+    
+    width: 500px;
+    height:400px;
+  
+    }
+    </style>
+    
+</head>
+
+<body>
+<script type="text/javascript" src="js/main.js"></script>	
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+    <!-- Left Panel -->
+ <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"/></a>
+                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"/></a>
+                 <ul>
+                        <li th:if="${session.a_user!=null}"><a href="#" id='logeed_in_user_name' th:utext="${session.a_user.getFname()}">OLHS </a></li>
+                        <li th:if="${session.a_user!=null}"><a href="#" id='logeed_in_user_name' th:utext="${session.a_user.getLname()}">OLHS </a></li>
+                         <li th:if="${session.a_user!=null}"><span th:if=" ${session.a_user.getRole().equalsIgnoreCase('superAdmin')}" ><a style="color:white; text-align:center;" href="#" id='logeed_in_user_role' th:utext="${session.a_user.getRole()}">OLHS </a></span></li>
+
+                    </ul>
+            </div>
+
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- <li class="active">
+                        <a href="/dashboard"><i class="zmdi zmdi-view-dashboard"></i><span class="list-label">Dashboard</span> </a>
+                    </li> -->
+                     <!-- <!-- <li th:if=" ${session.a_user.getRole().equalsIgnoreCase('superAdmin')}">
+                <a href="/dashboard"><i class="zmdi zmdi-accounts"></i><span class="list-label">Registrants</span></a>
+                <ul>
+                    <li><a href="/user">REGISTRANTS</a></li>
+                   
+                </ul>
+                </li> -->
+                <!--  <li th:if=" ${session.a_user.getRole().equalsIgnoreCase('superAdmin')}">
+                <a href="/dashboard"><i class="zmdi zmdi-map"></i><span class="list-label">LOCATIONS</span></a>
+                <ul>
+                    <li><a href="/province">PROVINCES</a></li>
+                      <li><a href="/district">DISTRICTS</a></li>
+                   
+                </ul>
+            </li> --> -->
+                    <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Home</a>
+                     <ul class="sub-menu children dropdown-menu">
+                    <li>SUPER ADMIN</li>
+                      <li>ADMIN</li>
+                   <li>CUSTOMER</li>
+                   <li>SELLER</li>
+                   <li>BRANCH</li>
+                </ul>
+                    </li> -->
+                    
+                    <li class="menu-item-has-children dropdown">
+                  
+                    
+                        <a href="/seller"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('superAdmin') }"> <i class="menu-icon fa fa-table"></i>Add Employee</span></a>
+                  
+                    </li>
+                    
+                    <!--   <li class="menu-item-has-children dropdown">
+                  
+                    
+                        <a href="/contractlist"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user') || session.a_user.getRole().toLowerCase().equalsIgnoreCase('superAdmin') }"> <i class="menu-icon fa fa-table"> <i class="menu-icon fa fa-table"> <i class="menu-icon fa fa-table"></i>Contract</span></a>
+                  
+                    </li> -->
+                    
+                    <li class="menu-item-has-children dropdown">
+                  
+                    
+                        <a href="/branch"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('superAdmin') }"> <i class="menu-icon fa fa-table"></i>Create Branch</span></a>
+                  
+                    </li>
+                    
+                   <!--   
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                        </ul>
+                    </li> -->
+                    <!-- <li class="menu-item-has-children dropdown">
+                    
+                    
+                     
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"> <i class="menu-icon fa fa-table"></i>Making Order</span></a>
+                       
+                    </li> -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"><i class="menu-icon fa fa-table"></i>Purchase</span></a>
+                        
+                    </li> -->
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"> <i class="menu-icon fa fa-table"></i>Check Branch</span></a>
+                        
+                    </li> -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"> <i class="menu-icon fa fa-table"></i>Payment</span></a>
+                        
+                    </li> -->
+                    
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user') || session.a_user.getRole().toLowerCase().equalsIgnoreCase('superAdmin') }"> <i class="menu-icon fa fa-table"></i>Report</span></a>
+                        
+                    </li>
+ -->
+                    <!-- <h3 class="menu-title">Icons</h3> --><!-- /.menu-title -->
+
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
+                        
+                    </li> -->
+                 <!--    <li>
+                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
+                    </li> -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a></li>
+                            <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
+                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a></li>
+                        </ul>
+                    </li> -->
+
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
+                            <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
+                        </ul>
+                    </li> -->
+                    <!-- <h3 class="menu-title">Extras</h3> --><!-- /.menu-title -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
+                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+
+       <!-- /header -->
+        <div data-th-replace="Layout/Navbar :: myNavbar"></div>
+        <!-- Header-->
+
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+          
+  
+  
+  
+                
+            </div>
+           
+        </div>
+       <div class="row"> 
+      <div class="form-group">
+    <div class="col-md-4" style="margin-left: 5px;">  
+    <Label>Branch</Label>
+    </div>
+    <div class="col-md-8">
+    <select class="form-control" id="r_branch">
+    
+    
+    </select>
+    
+  </div> 
+  </div>
+    </div>
+<div class="row">
+<div class="col-md-6">
+<div id="memberpieChart">
+
+
+</div>
+</div>
+<div class="col-md-6">
+<div id="memberpieChart1">
+
+
+</div>
+</div>
+<div class="col-md-6">
+<div id="memberpieChart2">
+</div>
+</div>
+
+
+</div>
+
+       
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+    <div data-th-replace="/Link/Script :: myScript"></div>
+    
+       <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="Alert/alert.js"></script>	
+		<script type="text/javascript" src="Alert/jquery.validate.js"></script>	
+		<script type="text/javascript" src="js/User.js"></script>		
+		<script type="text/javascript" src="c3/js/c3.min.js"></script>
+		<script type="text/javascript" src="c3/js/d3-5.4.0.min.js"></script>
+		<script>
+		
+		 function olhs_url() {
+		      var olhs_url = "http://localhost:4001";
+
+		      return olhs_url;
+		    }
+		 
+		$(document).ready(function(){
+			
+			 RetrieveBranches();
+			 
+		});
+		
+		 function RetrieveBranches() {
+				
+				$.ajax({
+					url: olhs_url() + '/branchs/all',
+					type: "GET", // type of action POST || GET
+					dataType: 'json', // data type
+			
+					data: {}, // post data || get data
+					contentType: 'application/json',
+					success: function (result, textStatus, jQxhr) {
+						console.log(result);
+						if (result.code==200) {
+						//	 console.log(result)
+						   
+						var branches=result.OBJECT;
+						 
+							
+							  $('#r_branch').children('option').remove();
+								$.each(branches, function (i, item) {
+									$('#r_branch').append($('<option></option>', {
+										value: item.uuid,
+										text: item.branchname
+									}));
+								});
+				        		
+								
+						
+						} else {
+							
+							$.alert(result.DESCRIPTION, {
+								type: "danger",
+								position: ['center',
+									[-0.42, 0]
+								],
+							});
+						}
+					},
+					error: function (xhr, resp, text) {
+						console.log(xhr, resp, text);
+						$.alert('Error Occurred', {
+							type: "danger",
+							position: ['center',
+								[-0.42, 0]
+							],
+						});
+
+					}
+				})
+
+			}
+		 
+		 var order1 = [];
+		 var order2 = [];
+		 
+		 function getOrders(){
+			 $.ajax({
+					url: olhs_url() + '/solarorders/all',
+					type: "GET", // type of action POST || GET
+					dataType: 'json', // data type
+			
+					data: {}, // post data || get data
+					contentType: 'application/json',
+					success: function (result, textStatus, jQxhr) {
+						console.log(result);
+						if (result.code==200) {
+						//	 console.log(result)
+						   
+						var orders=result.OBJECT;
+						 
+							
+							
+								$.each(orders, function (i, item) {
+								
+									if(item.solarenergy.branch.uuid === $("#r_branch").val()){
+										if(item.orderstatus === "Pending"){
+											order1.push(item);
+										}else{
+											order2.push(item);
+										}
+									} 
+								});
+				        		
+								
+						
+						} else {
+							
+							$.alert(result.DESCRIPTION, {
+								type: "danger",
+								position: ['center',
+									[-0.42, 0]
+								],
+							});
+						}
+					},
+					error: function (xhr, resp, text) {
+						console.log(xhr, resp, text);
+						$.alert('Error Occurred', {
+							type: "danger",
+							position: ['center',
+								[-0.42, 0]
+							],
+						});
+
+					}
+				})
+		 }
+		
+		 $("#r_branch").change(function() {
+			 
+			 getOrders();
+			 
+			 getContract();
+			 
+			 getPayment();
+			 
+			/*  alert("hello my friend"); */
+			 
+			 usersChart();
+			 usersChart1();
+			 usersChart2();
+		 });
+		 
+		 function usersChart(){
+				var chart = c3.generate({
+				   bindto: '#memberpieChart',
+					data: {
+						// iris data from R
+						columns: [
+							['PENDING', order1.length], 
+							['APPROVED', order2.length],
+						],
+						type: 'pie',
+						onclick: function (d, i) { console.log("onclick", d, i); },
+						onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+						onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+					},
+				});
+
+				setTimeout(function () {
+					chart.load({
+						columns: [
+							["PENDING", order1.length],
+							["APPROVED", order2.length],
+						]
+					});
+				}, 1500);
+
+				setTimeout(function () {
+					chart.unload({
+						ids: 'data1'
+					});
+					chart.unload({
+						ids: 'data2'
+					});
+				}, 2500);
+				
+
+			}
+		 
+		 var contract1= [];
+		 var contract2= [];
+		 var contract3= [];
+		 
+		 function getContract(){
+			 $.ajax({
+					url: olhs_url() + '/contracts/all',
+					type: "GET", // type of action POST || GET
+					dataType: 'json', // data type
+			
+					data: {}, // post data || get data
+					contentType: 'application/json',
+					success: function (result, textStatus, jQxhr) {
+						console.log(result);
+						if (result.code==200) {
+						//	 console.log(result)
+						   
+						var contract=result.OBJECT;
+						 
+							
+							
+								$.each(contract, function (i, item) {
+								
+									 if(item.order.solarenergy.branch.uuid === $("#r_branch").val()){
+										if(item.contractstatus === "Pending"){
+											contract1.push(item);
+										}else if(item.contractstatus === "Confirmationbycustomer"){
+											contract2.push(item);
+										}else{
+											contract3.push(item);
+										}
+									}  
+								});
+				        		
+								
+						
+						} else {
+							
+							$.alert(result.DESCRIPTION, {
+								type: "danger",
+								position: ['center',
+									[-0.42, 0]
+								],
+							});
+						}
+					},
+					error: function (xhr, resp, text) {
+						console.log(xhr, resp, text);
+						$.alert('Error Occurred', {
+							type: "danger",
+							position: ['center',
+								[-0.42, 0]
+							],
+						});
+
+					}
+				})
+		 }
+		 
+		 
+		 function usersChart1(){
+				var chart = c3.generate({
+				   bindto: '#memberpieChart1',
+					data: {
+						// iris data from R
+						columns: [
+							['PENDING', contract1.length],
+							['Confirmationbycustomer', contract2.length],
+							['Confirmationbyall', contract3.length],
+						],
+						type: 'pie',
+						onclick: function (d, i) { console.log("onclick", d, i); },
+						onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+						onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+					},
+				});
+
+				setTimeout(function () {
+					chart.load({
+						columns: [
+							['PENDING', contract1.length],
+							['Confirmationbycustomer', contract2.length],
+							['Confirmationbyall', contract3.length],
+						]
+					});
+				}, 1500);
+
+				setTimeout(function () {
+					chart.unload({
+						ids: 'data1'
+					});
+					chart.unload({
+						ids: 'data2'
+					});
+				}, 2500);
+				
+
+			}
+		 
+		 var pay1= [];
+		 var pay2= []; 
+		 
+		 function getPayment(){
+			 $.ajax({
+					url: olhs_url() + '/payment/allpayment',
+					type: "GET", // type of action POST || GET
+					dataType: 'json', // data type
+			
+					data: {}, // post data || get data
+					contentType: 'application/json',
+					success: function (result, textStatus, jQxhr) {
+						console.log(result);
+						if (result.code==200) {
+						//	 console.log(result)
+						   
+						var payment=result.OBJECT;
+						 
+							
+							
+								$.each(payment, function (i, item) {
+								
+								  if(item.contract.order.solarenergy.branch.uuid === $("#r_branch").val()){
+										if(item.paymentstatus === "Pending"){
+											pay1.push(item);
+										}else{
+											pay2.push(item);
+										} 
+
+}  
+
+								 });
+				        		
+								
+						
+						} else {
+							
+							$.alert(result.DESCRIPTION, {
+								type: "danger",
+								position: ['center',
+									[-0.42, 0]
+								],
+							});
+						}
+					},
+					error: function (xhr, resp, text) {
+						console.log(xhr, resp, text);
+						$.alert('Error Occurred', {
+							type: "danger",
+							position: ['center',
+								[-0.42, 0]
+							],
+						});
+
+					}
+				})
+		 }
+		 
+		 
+		 function usersChart2(){
+				var chart = c3.generate({
+				   bindto: '#memberpieChart2',
+					data: {
+						// iris data from R
+						columns: [
+							['PENDING', pay1.length],
+							['Approved', pay2.length],
+							/* ['Confirmationbyall', contract3.length], */
+						],
+						type: 'pie',
+						onclick: function (d, i) { console.log("onclick", d, i); },
+						onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+						onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+					},
+				});
+
+				setTimeout(function () {
+					chart.load({
+						columns: [
+							['PENDING', pay1.length],
+							['Approved', pay2.length],
+						/* 	['Confirmationbyall', contract3.length], */
+						]
+					});
+				}, 1500);
+
+				setTimeout(function () {
+					chart.unload({
+						ids: 'data1'
+					});
+					chart.unload({
+						ids: 'data2'
+					});
+				}, 2500);
+				
+
+			}
+		 
+      
+		</script>
+    
+
+</body>
+
+</html>

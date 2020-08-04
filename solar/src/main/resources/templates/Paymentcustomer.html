@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://js.braintreegateway.com/web/dropin/1.18.0/js/dropin.min.js"></script>
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+  
+</head>
+
+<link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+ <link href="/boot/css/bootstrap.min.css" rel="stylesheet"/>
+
+<body>
+
+  <div id="dropin-wrapper"></div>
+  <div id="checkout-message"></div>
+   <div id="dropin-container"></div>
+   
+<script type="text/javascript" src="js/main.js"></script>	
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+   
+<script src="/https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/boot/js/bootstrap.min.js"></script>
+
+</form> 
+   
+   <table class="table table-hover table-light">
+    <thead>
+        <tr class="uppercase">
+            <th>ID</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Branch</th>
+            <th>Registrar</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+           <td>1</td>
+           <td>CARD</td>
+           <td>600000</td>
+           <td>Pending</td>
+           <td>1</td>
+           <td>Amos</td>
+        </tr>
+    </tbody>
+</table>
+   
+   
+ 
+  <script>
+   
+  
+  $(document).ready(function (){
+       
+          findAllPayment(); 
+    }); 
+      
+  function findAllContract(){
+  	
+ 	/*  var contractuuid=$('#paymentuuid').val(); */
+ 	 var ruuid= $.parseJSON(sessionStorage.getItem('a_registrant')).uuid;
+  
+    var button = document.querySelector('#submit-button');
+
+    braintree.dropin.create({
+      authorization: 'CLIENT_TOKEN_FROM_SERVER',
+      container: '#dropin-container'
+    }, function (createErr, instance) {
+      button.addEventListener('click', function () {
+        instance.requestPaymentMethod(function (err, payload) {
+          // Submit payload.nonce to your server
+          
+             $.ajax({
+            	 
+            	 headers: {
+                     'jado_token': token()
+                 },
+          type: 'GET',
+          url:  auca_be()+"/payments/client_token",
+          data: {'paymentMethodNonce': payload.nonce}
+        }).done(function(result) {
+          // Tear down the Drop-in UI
+          sucess:(function (result) {
+            if (result.code == 200) {
+            	 var button = document.querySelector('#submit-button');
+                 braintree.dropin.create({
+                 authorization:resurt.OBJECT,
+                 container: '#dropincontainer'
+                 }, function (createErr, instance) {
+                 button.addEventListener('click', function () {
+                     instance.requestPaymentMethod(function (err, payload) {
+                           console.log(payload);
+                     // Submit payload.nonce to your serve
+                     
+                            var payment={
+                                "clientNonce":payload.nonce,
+                                "cardType":payload.type,
+                                "lastFour":payload.details.lastFour,
+                                "lastTwo":payload.lastTwo, 
+                                "bin":payload.details.bin,
+                                "amount":$("#amount").val(),
+                                "clientName":$("#username").val(),
+                                "expiredate":$("#expiredate").val()
+                            }
+                         
+                           
+                            $.ajax({
+                                headers: {
+                                'jado_token': token()
+                                },
+                                type: 'POST',
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                data:JSON.stringify(nonce),
+                                url: ranga_be()+"/payment/save/"+uuid+"/"+ uuid,
+                                success:function (result){
+                                    if(result.CODE==200){
+                                        $.alert(result.DESCRIPTION, {
+                                             type: "success",
+                                             position: ['top-right',
+                                                  [-0.42, 0]
+                                             ],
+                                           }); 
+                                            
+                                            
+                                    }else{
+                                              $.alert(result.DESCRIPTION, {
+                                                 type: "danger",
+                                                 position: ['top-right',
+                                                  [-0.42, 0]
+                                                 ],
+                                              });
+                                        console.log("fail get", result)
+                                    }
+                                },
+                                 error: function (e) {  
+                                   console.log("ERROR", e);
+                                 }
+                                 
+                            })
+                            
+                         }
+                     
+                     
+                  }
+                 }
+                 }
+                 
+              console.error('Could not tear down Drop-in UI!');
+            } else {
+              console.info('Drop-in UI has been torn down!');
+              // Remove the 'Submit payment' button
+              $('#submit-button').remove();
+            }
+          });
+
+                     $.ajax({
+                         headers: {
+                         'jado_token': token()
+                         },
+                         type: 'POST',
+                         dataType: 'json',
+                         contentType: 'application/json',
+                         data:JSON.stringify(nonce),
+                         url: jado_be()+"/payment/save/"+uuid,
+                         success:function (result){
+                     
+          if (result.code == 200) {
+ /*            $('#checkout-message').html('<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>'); */
+        	  console.log(result)
+              $.alert(result.DESCRIPTION, {
+                   type: "success",
+                   position: ['top-right',
+                        [-0.42, 0]
+                   ],
+                 }); 
+                  
+                  viewContract();
+                  $("#paymentterm").modal('hide');
+                  $("Twomonths").removeClass('disabled');
+                  $("Threemonths").removeClass('disabled');
+                  $("Oneyear").removeClass('disabled');
+                  $("Fullpaid").removeClass('disabled');
+ 
+          } else {
+        	  
+        	  $("Twomonths").removeClass('disabled');
+              $("Threemonths").removeClass('disabled');
+              $("Oneyear").removeClass('disabled');
+              $("Fullpaid").removeClass('disabled');
+                   $.alert(result.DESCRIPTION, {
+                      type: "danger",
+                      position: ['top-right',
+                       [-0.42, 0]
+                      ],
+                   });
+      
+            console.log(result);
+            $('#checkout-message').html('<h1>Error</h1><p>Check your console.</p>');
+          },
+          
+          error: function (e) {
+              $("Twomonths").removeClass('disabled');
+              $("Threemonths").removeClass('disabled');
+              $("Oneyear").removeClass('disabled');
+              $("Fullpaid").removeClass('disabled');
+              
+           console.log("ERROR", e);
+         }
+          
+        });
+      });
+    });
+                 
+      }
+  </script>
+</body>
+</html>

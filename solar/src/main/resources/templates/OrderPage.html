@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="/boot/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<script src="/https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/boot/js/bootstrap.min.js"></script>
+
+<div class="row" style="margin-top: 100px; margin-bottom: 100px;">
+<div class="col-md-6  col-md-offset-3">	  
+<div class = "panel panel-default" style="margin-left: 100px;">
+<div class = "panel-heading" style="background-color: blue; color: white;">
+<h1>Order Request</h1>
+</div>
+<div class = "panel-body">
+<div id="register">
+
+<form class="form-horizontal" id="r_form">
+<div class="form-group ">
+<div class="col-md-6">
+
+<input type="text" id="solaruuid" name="solarid" th:value=${solaruuid} hidden>
+
+ <label>OrderDate</label>                                           
+<input type="text" name="Name" class="form-control" id="r_date" placeholder="BranchName" required="required"/>
+</div>                                           
+</div>
+<div class="form-group ">
+<Label class="col-md-4 control-label">Province</Label>
+<select class="col-md-6 form-control" id="r_province">
+<option>--choose province--</option>
+    
+</select>
+</div>
+
+<div class="form-group ">
+<Label class="col-md-4 control-label">District</Label>
+<select class="col-md-6 form-control" id="r_district" >
+<option>--choose district--</option>
+    
+</select>
+</div>
+<div class="col-md-3">
+<div class="form-actions">
+<input type="button" id="r_save" class="btn btn-primary" value="submit"/>
+                         
+</div>
+</div>
+<div class="col-md-3">
+<div class="form-actions">
+<a href="loginn" class="btn btn-danger pull-left">Cancel</a>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="form-actions">
+<a href="list" id="r_view" class="btn btn-primary">ViewList</a>
+
+</div>
+</div>
+</form>
+</div>
+</div>      
+</div>					
+</div>
+</div>
+
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="Alert/alert.js"></script>	
+<script type="text/javascript" src="Alert/jquery.validate.js"></script>	
+<script type="text/javascript" src="js/User.js"></script>	
+
+
+<script>
+
+function olhs_url() {
+    var olhs_url = "http://localhost:4001";
+
+    return olhs_url;
+  }
+  
+function myfunction(){
+	var x=document.getElementById("r_password");
+	
+	if(x.type==="password"){
+		x.type="text";
+	}else{
+		x.type="password";
+	}
+}
+
+
+$(document).on('click','#r_save', function(){
+	 alert($("#solaruuid").val());
+	 alert($("#r_firstname").val());
+	 alert("saved");
+	 
+	 var orderdate= $('#r_date').val();
+	 var rguuid= $.parseJSON(sessionStorage.getItem('a_reg')).firstname.val();
+	 var role ='user';
+	 if($("#r_form").valid()){
+		 $("#r_Save").addClass('disabled');
+		 
+		 var Solarorder={
+				 orderdate: orderdate,
+				solaruuid:$(solaruuid).val(),
+		        rguuid:$(rguuid).val(),
+				 
+		         applicationName:'OLHS',
+		         role: role,
+		         
+		         category: $('#r_Category').val(),
+		 }
+		 console.log(Solarorder);
+		 $.ajax({ 
+		        
+				headers: {
+			        
+                  //'olhs_token': 'OLHS'+formatDate(new Date(), "dd-MM-yyyy"),
+			        'doneBy':role
+			    },
+				url:olhs_url()+'/solarorder/saveorder/'+ $("#solaruuid").val()+ $("#reguuid").val(), 
+		        type : "POST", // type of action POST || GET
+		        dataType : 'json', // data type
+		        data : JSON.stringify(Solarorder), // post data || get data
+		        contentType: 'application/json',
+		        success : function(result, textStatus, jQxhr) {
+		        	$("#r_Save").removeClass('disabled');
+		        	if(result.CODE==200){
+		     
+		        		$.alert(result.DESCRIPTION,
+								{
+									type : "success",
+									position : [ 'top-right',
+											[ -0.42, 0 ] ],
+								}); 
+			        	
+			        	$("#r_form").each(
+								function() {
+									this.reset();
+								});
+			        	 
+			        	}else{
+			        		 $.alert(result.DESCRIPTION,
+									{
+										type : "danger",
+										position : [ 'top-right',
+												[ -0.42, 0 ] ],
+									}); 
+			        	}
+			        		
+		        	
+
+						
+
+					},
+					error: function (xhr, resp, text) {
+						console.log(xhr, resp, text);
+						$("#r_Save").removeClass('disabled');
+						$.alert('Error Occurred' + xhr.responseText, {
+							type: "danger",
+							position: ['top-right',
+								[-0.42, 0]
+							],
+						});
+
+					}
+				});
+
+		
+			
+		
+
+}
+	
+});
+
+var loca={};
+$(function(){
+	   locator(); 
+})
+
+ function  locator(){
+			   $.ajax({
+				   type:"GET",
+				   url:"http://localhost:4001/locationn/locations",
+				   success:function(resurt){
+					   console.log(resurt);
+					   loca=resurt;
+					   console.log(loca);
+					   ViewProvince();
+				   },
+				   error:function(){
+					   
+				   }
+			   })
+		   }
+function ViewProvince(){
+	   $.each(loca.provinces, function(i,d){
+		   $('#r_province').append($('<option>', {
+			   	value: d.id,
+			   	text: d.name
+		   }));
+	   })
+}
+
+$(document).on("change", "#r_province" ,function(){
+	   
+	   $.each(loca.districts, function(i,d){
+		  
+		   if(d.province.id==$("#r_province").val()){
+			   $('#r_district').append($('<option>', {
+				   value:d.id,
+				   text:d.name
+			   }));
+		   }
+	   })
+})
+
+</script>
+
+
+	
+</body>
+</html>

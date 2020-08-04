@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta charset="utf-8"/>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <link href="/boot/css/bootstrap.min.css" rel="stylesheet"/>
+ 
+ <style type="text/css">
+body{
+background: linear-gradient(rgba(0, 0, 0, 0.54), rgba(5, 5, 5, 0.72)), url("/images/1.jpg");
+background-size: cover;
+}
+
+</style>
+
+<title>Insert title here</title>
+</head>
+<body>
+<script src="/https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+    <script src="/boot/js/bootstrap.min.js"></script>
+ 
+    <div style="margin-top: 80px; margin-top: 40px; ">
+        
+        <div class="col-md-6 col-md-offset-3">
+            
+    <div class = "panel panel-default" style="background-color: green">
+        
+         <div class = "panel-heading" style="background-color: green; font-color:white">
+        
+             <h1>Create SolarEnergy</h1>
+         </div>
+         <div class = "panel-body">
+                   
+            <form id="r_form" required="required">
+  <div class="form-group">
+  
+   <input type="text" id="branchuuid" name="branchid" th:value=${branchuuid} hidden>
+      <Label>Description</Label>
+      <input  class="form-control" name="description"  required="required"  id="r_description"/>
+  </div>
+    <div class="form-group">
+    
+        <Label>Solar Capacity</Label>
+        <input  name="capacity" id="r_capacity" class="form-control" required="required"/>
+  </div> 
+  <div class="form-group">
+    
+    <Label>Solar Quantity</Label>
+    
+    <input  name="quantity" id="r_quantity" class="form-control" required="required"/>
+    
+  </div> 
+      
+   <div class="form-group">
+       <Label>Solar Quality</Label>
+       <input class="form-control"    name="quality" id="r_quality" required="required"/>
+  </div>          
+ 
+  <div class="form-group">
+       <Label>Cost</Label>
+       <input class="form-control" name="cost"   id="r_cost" required="required"/>
+  </div>     
+  
+  <div class="form-group">
+       <Label>CHOOSE PICTURE</Label>
+       <input type="file" class="form-control"   id="r_picture" name="attachement" required="required"/>
+  </div>     
+ 
+ 
+      <input type="button"   class="btn btn-primary btn-default"    id="r_save"  value="submit" />
+</form>
+  </div>
+      </div>
+   
+</div>
+        </div>
+        
+    
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="Alert/alert.js"></script>	
+		<script type="text/javascript" src="Alert/jquery.validate.js"></script>	
+		<script type="text/javascript" src="js/User.js"></script>	
+
+        <script>
+		
+		function olhs_url() {
+		      var olhs_url = "http://localhost:4001";
+
+		      return olhs_url;
+		    }
+		 function myfunction(){
+				var x=document.getElementById("r_password");
+				
+				if(x.type==="password"){
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+			}
+		/*
+		 $(document).on('click','#r_save', function(){
+			 alert($("#branchuuid").val());
+			alert("saved");
+			 var description= $('#r_description').val();
+			 var solarquality= $('#r_quality').val();
+			 var quantity= $('#r_quantity').val();
+			 var solarcapacity= $('#r_capacity').val();
+			 var cost         = $('#r_cost').val();
+			 var role ='user';
+			 if($("#r_form").valid()){
+				 $("#r_Save").addClass('disabled');
+				 
+				 var SolarEnergy={
+						 description: description,
+						 solarquality: solarquality,
+						 quantity: quantity,
+						 solarcapacity: solarcapacity,
+						 cost         : cost,
+				         applicationName:'OLHS',
+				         role: role,
+				         branchuuid: $("#r_branch").val(),
+				         category: $('#r_Category').val(),
+				 }
+				 console.log(SolarEnergy);
+				 $.ajax({ 
+				        
+						headers: {
+					        
+		                   //'olhs_token': 'OLHS'+formatDate(new Date(), "dd-MM-yyyy"),
+					        'doneBy':role
+					    },
+						url:olhs_url()+'/solarenergy/savesolar/'+$("#branchuuid").val(), 
+				        type : "POST", // type of action POST || GET
+				        dataType : 'json', // data type
+				        data : JSON.stringify(SolarEnergy), // post data || get data
+				        contentType: 'application/json',
+				        success : function(result, textStatus, jQxhr) {
+				        	$("#r_Save").removeClass('disabled');
+				        	if(result.CODE==200){
+				     
+				        		$.alert(result.DESCRIPTION,
+										{
+											type : "success",
+											position : [ 'top-right',
+													[ -0.42, 0 ] ],
+										}); 
+					        	
+					        	$("#r_form").each(
+										function() {
+											this.reset();
+										});
+					        	 
+					        	}else{
+					        		 $.alert(result.DESCRIPTION,
+											{
+												type : "danger",
+												position : [ 'top-right',
+														[ -0.42, 0 ] ],
+											}); 
+					        	}
+					        		
+				        	
+
+								
+
+							},
+							error: function (xhr, resp, text) {
+								console.log(xhr, resp, text);
+								$("#r_Save").removeClass('disabled');
+								$.alert('Error Occurred' + xhr.responseText, {
+									type: "danger",
+									position: ['top-right',
+										[-0.42, 0]
+									],
+								});
+
+							}
+						});
+
+				
+					
+				
+
+		 }
+			
+		 });
+		*/
+		
+		// save solarenergyinbranch with the image
+		
+		
+		
+		$(document).on('click','#r_save',function (){
+			
+			var username=$.parseJSON(sessionStorage.getItem('a_user')).username;
+			var loggedinrole=$.parseJSON(sessionStorage.getItem('a_user')).role;
+
+			
+			if($("#r_form").valid()){ 
+				$("#r_save").addClass('disabled');
+				
+		
+				
+			
+            var formData = {};
+
+            var $form = $("#r_form"), formData = new FormData(), params = $form
+                .serializeArray(), files = $form
+                .find('[name="attachement"]')[0].files;
+
+            $.each(files, function(i, file) {
+              // Prefix the name of uploaded files with
+              // "uploadedFiles-"
+              // Of course, you can change it to any string
+              formData.append('attachement-' + i, file);
+            });
+
+            $.each(params, function(i, val) {
+              formData.append(val.name, val.value);
+            });
+
+	
+            	
+				$.ajax({ 
+			        
+					headers: {
+				        
+	                   'bfw_token': token(),
+				        'doneBy':username
+				    },
+				    url:olhs_url()+'/solarenergy/save', 
+					type : 'POST',
+	                  cache : false,
+	                  contentType : false,
+	                  processData : false,
+	                  data : formData,
+			        success : function(result, textStatus, jQxhr) {
+			        	$("#r_save").removeClass('disabled');	
+			        	if(result.CODE==200){
+			          
+			        	$.alert(result.DESCRIPTION,
+								{
+									type : "success",
+									position : [ 'top-right',
+											[ -0.42, 0 ] ],
+								});
+			        	
+			        	$("#_form").each(
+								function() {
+									this.reset();
+								});
+								location.href="products";
+			        	//window.location.href="product";
+			        	
+			        	}else{
+			        		$.alert(result.DESCRIPTION,
+									{
+										type : "danger",
+										position : [ 'top-right',
+												[ -0.42, 0 ] ],
+									});
+			        	}
+			        	
+			        	
+			        },
+			        error: function(xhr, resp, text) {
+			            console.log(xhr, resp, text);
+			            $("#p_save").removeClass('disabled');
+			            $.alert('Error Occurred'+xhr.responseText,
+								{
+									type : "danger",
+									position : [ 'top-right',
+											[ -0.42, 0 ] ],
+								});
+			            
+			        }
+			    });
+		        
+			
+				
+			}
+			
+		});
+		
+		 
+		 function olhs_url() {
+		      var olhs_url = "http://localhost:4001";
+
+		      return olhs_url;
+		    }
+		 
+		$(document).ready(function(){
+			
+			 RetrieveBranches();
+			 
+		});
+		 
+		 
+		 function RetrieveBranches() {
+				
+				$.ajax({
+					url: olhs_url() + '/branchs',
+					type: "GET", // type of action POST || GET
+					dataType: 'json', // data type
+			
+					data: {}, // post data || get data
+					contentType: 'application/json',
+					success: function (result, textStatus, jQxhr) {
+						console.log(result);
+						if (result.code==200) {
+						//	 console.log(result)
+						   
+						var branches=result.OBJECT;
+						 
+							
+							  $('#r_branch').children('option').remove();
+								$.each(branches, function (i, item) {
+									$('#r_branch').append($('<option></option>', {
+										value: item.uuid,
+										text: item.branchname
+									}));
+								});
+				        		
+								
+						
+						} else {
+							
+							$.alert(result.DESCRIPTION, {
+								type: "danger",
+								position: ['center',
+									[-0.42, 0]
+								],
+							});
+						}
+					},
+					error: function (xhr, resp, text) {
+						console.log(xhr, resp, text);
+						$.alert('Error Occurred', {
+							type: "danger",
+							position: ['center',
+								[-0.42, 0]
+							],
+						});
+
+					}
+				})
+
+			}
+		 
+		 
+		
+		 
+		
+		</script>
+		
+
+</body>
+</html>

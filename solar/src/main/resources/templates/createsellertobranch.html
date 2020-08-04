@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+ <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    
+    
+    <link href="/boot/css/bootstrap.min.css" rel="stylesheet"/>
+    
+    <style type="text/css">
+body{
+background: linear-gradient(rgba(0, 0, 0, 0.54), rgba(5, 5, 5, 0.72)), url("/images/solar1.jpg");
+background-size: cover;
+}
+</style>   
+</head>
+<body>
+ <script src="/https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   
+    <script src="/boot/js/bootstrap.min.js"></script>
+    
+    <div class="row">
+        
+        <div class="col-md-6 col-md-offset-3">
+            
+    <div class = "panel panel-default">
+        
+         <div class = "panel-heading" style="background-color: blue;">
+             <h1>SAVE Employee</h1>
+         </div>
+         <div class = "panel-body">
+                   
+            <form id="r_form" required="required">
+  <div class="form-group">
+  
+      <Label>First Name</Label>
+      <input  class="form-control" required="required"  id="r_fname" />
+  </div>
+    <div class="form-group">
+    
+        <Label>Last Name</Label>
+        
+        <input  name="lastname" id="r_lname" class="form-control" required="required"/>
+  </div> 
+  
+  <div class="form-group">
+    
+    <Label>Branch</Label>
+    <select class="form-control" id="r_branch">
+    
+    
+    </select>
+    
+  </div> 
+  
+   <div class="form-group ">
+   <label>GENDER</label>
+   <select class="form-control" required="required" id="r_gender" name="category">
+   <option value="MALE">MALE</option>
+   <option value="FEMALE">FEMALE</option>
+                                                    
+   </select>
+   </div>
+   
+   <div class="form-group ">
+    <label>Category</label>
+    <select class="form-control" required="required" id="r_Category" name="category">
+    <option value="CUSTOMER">CUSTOMER</option>
+    <option value="Seller">Seller</option>
+    <option value="SuperAdministrator">SuperAdministrator</option>
+    <option value="Administrator">Administrator</option>
+                                                    
+    </select>
+   
+    </div>   
+    <div class="form-group ">
+    <label>PHONE</label>
+    <input type="text" name="r_phone" class="form-control" id="r_phone" placeholder="Phone" required="required"/>
+     </div>  
+                                        
+   <div class="form-group ">
+   <label>DateOfBirth</label>
+  
+  <input type="text" name="r_dateofbirth" class="form-control" id="r_dateofbirth" placeholder="dateofbirth" required="required"/>
+                                                
+  
+  </div>
+                                        
+  <div class="form-group ">
+  <label>IdNumber</label>
+  <input type="text"  class="form-control" id="r_idnumber" placeholder="idnumber" required="required"/>                                               
+  </div>                                                          
+   
+ 
+ <div class="form-group "> 
+  <Label>UserName</Label>
+  <input class="form-control"   name="username" id="r_username" required="required"/>
+  </div>          
+  <div class="form-group ">
+  <label>Password</label>
+  <input type="password" name="password" class="form-control" id="r_password" placeholder="password" required="required"/>                                          
+  </div>
+ 
+    <input type="button"   class="btn btn-primary btn-default"    id="r_save"  value="submit" />
+</form>
+</div>
+</div>
+
+</div>
+
+</div>
+
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="Alert/alert.js"></script>	
+		<script type="text/javascript" src="Alert/jquery.validate.js"></script>	
+		<script type="text/javascript" src="js/User.js"></script>		
+
+		<script>
+		
+		function olhs_url() {
+		      var olhs_url = "http://localhost:4001";
+
+		      return olhs_url;
+		    }
+		 function myfunction(){
+				var x=document.getElementById("r_password");
+				
+				if(x.type==="password"){
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+			}
+		
+		 $(document).on('click','#r_save', function(){
+			alert("saved");
+			 var firstname= $('#r_fname').val();
+			 var lastname= $('#r_lname').val();
+			 var username= $('#r_username').val();
+			 var gender=   $('#r_gender').val();
+			 var password= $('#r_password').val();
+			 var email= $('#r_email').val();
+			 var idnumber= $('#r_idnumber').val();
+			 var dateofbirth= $('#r_dateofbirth').val();
+			 var phonenumber= $('#r_phone').val();
+			 var role ='user';
+			 if($("#r_form").valid()){
+				 $("#r_Save").addClass('disabled');
+				 
+				 var Seller={
+						 firstname: firstname,
+				         lastname: lastname,
+				         username: username,
+				         password: password,
+				         email: email,
+				         idnumber: idnumber,
+				         dateofbirth: dateofbirth,
+				         phonenumber: phonenumber,
+				         branchuuid: $("#r_branch").val(),
+				         applicationName:'OLHS',
+				         role: role,
+				         category: $('#r_Category').val(),
+				         
+				 }
+				 console.log(Seller);
+				 $.ajax({ 
+				        
+						headers: {
+					        
+		                   //'olhs_token': 'OLHS'+formatDate(new Date(), "dd-MM-yyyy"),
+					        'doneBy':username
+					    },
+						url:olhs_url()+'/registrar/savewithseller/'+$("#r_branch").val(),
+				        type : "POST", // type of action POST || GET
+				        dataType : 'json', // data type
+				        data : JSON.stringify(Seller), // post data || get data
+				        contentType: 'application/json',
+				        success : function(result, textStatus, jQxhr) {
+				        	$("#r_Save").removeClass('disabled');
+				        	if(result.CODE==200){
+				     
+				        		$.alert(result.DESCRIPTION,
+										{
+											type : "success",
+											position : [ 'top-right',
+													[ -0.42, 0 ] ],
+										}); 
+					        	
+					        	$("#r_form").each(
+										function() {
+											this.reset();
+										});
+					        	 
+					        	}else{
+					        		 $.alert(result.DESCRIPTION,
+											{
+												type : "danger",
+												position : [ 'top-right',
+														[ -0.42, 0 ] ],
+											}); 
+					        	}
+					        		
+				        	
+
+								
+
+							},
+							error: function (xhr, resp, text) {
+								console.log(xhr, resp, text);
+								$("#r_Save").removeClass('disabled');
+								$.alert('Error Occurred' + xhr.responseText, {
+									type: "danger",
+									position: ['top-right',
+										[-0.42, 0]
+									],
+								});
+
+							}
+						});
+
+				
+					
+				
+
+		 }
+			
+		 });
+		 
+		 function olhs_url() {
+		      var olhs_url = "http://localhost:4001";
+
+		      return olhs_url;
+		    }
+		 
+		$(document).ready(function(){
+			
+			 RetrieveBranches();
+			 
+		});
+		
+		 function RetrieveBranches() {
+				
+				$.ajax({
+					url: olhs_url() + '/branchs/all',
+					type: "GET", // type of action POST || GET
+					dataType: 'json', // data type
+			
+					data: {}, // post data || get data
+					contentType: 'application/json',
+					success: function (result, textStatus, jQxhr) {
+						console.log(result);
+						if (result.code==200) {
+						//	 console.log(result)
+						   
+						var branches=result.OBJECT;
+						 
+							
+							  $('#r_branch').children('option').remove();
+								$.each(branches, function (i, item) {
+									$('#r_branch').append($('<option></option>', {
+										value: item.uuid,
+										text: item.branchname
+									}));
+								});
+				        		
+								
+						
+						} else {
+							
+							$.alert(result.DESCRIPTION, {
+								type: "danger",
+								position: ['center',
+									[-0.42, 0]
+								],
+							});
+						}
+					},
+					error: function (xhr, resp, text) {
+						console.log(xhr, resp, text);
+						$.alert('Error Occurred', {
+							type: "danger",
+							position: ['center',
+								[-0.42, 0]
+							],
+						});
+
+					}
+				})
+
+			}
+			
+		
+		</script>
+</body>
+</html>

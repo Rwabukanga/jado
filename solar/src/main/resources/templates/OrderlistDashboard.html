@@ -1,0 +1,445 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+ <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Sufee Admin - HTML5 Admin Template</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <div data-th-replace="Link/Css :: myCss"></div>
+    
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    
+</head>
+<body>
+<script type="text/javascript" src="js/main.js"></script>	
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+    <!-- Left Panel -->
+ <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"/></a>
+                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"/></a>
+                 <ul>
+                        <li th:if="${session.a_user!=null}"><a href="#" id='logeed_in_user_name' th:utext="${session.a_user.getFname()}">OLHS </a></li>
+                        <li th:if="${session.a_user!=null}"><a href="#" id='logeed_in_user_name' th:utext="${session.a_user.getLname()}">OLHS </a></li>
+                         <li th:if="${session.a_user!=null}"><span th:if=" ${session.a_user.getRole().equalsIgnoreCase('superAdmin')}" ><a style="color:white; text-align:center;" href="#" id='logeed_in_user_role' th:utext="${session.a_user.getRole()}">OLHS </a></span></li>
+
+                    </ul>
+            </div>
+
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="/dashboard"><i class="zmdi zmdi-view-dashboard"></i><span class="list-label">Dashboard</span> </a>
+                    </li>
+                <!--      <li th:if=" ${session.a_user.getRole().equalsIgnoreCase('superAdmin')}">
+                <a href="/dashboard"><i class="zmdi zmdi-accounts"></i><span class="list-label">Registrants</span></a>
+                <ul>
+                    <li><a href="/user">REGISTRANTS</a></li>
+                   
+                </ul>
+                </li> -->
+                <!--  <li th:if=" ${session.a_user.getRole().equalsIgnoreCase('superAdmin')}">
+                <a href="/dashboard"><i class="zmdi zmdi-map"></i><span class="list-label">LOCATIONS</span></a>
+                <ul>
+                    <li><a href="/province">PROVINCES</a></li>
+                      <li><a href="/district">DISTRICTS</a></li>
+                   
+                </ul>
+            </li> -->
+                    <!-- <h3 class="menu-title">UI elements</h3> --><!-- /.menu-title -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="/loginn" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Home</a>
+       
+                    </li> -->
+                    
+                    <li class="menu-item-has-children dropdown">
+                  
+                    
+                        <a href="/seller"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('superAdmin') }"> <i class="menu-icon fa fa-table"></i>Add Employee</span></a>
+                  
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                  
+                    
+                        <a href="/branch"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('superAdmin') }"> <i class="menu-icon fa fa-table"></i>Create Branch</span></a>
+                  
+                    </li>
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                        </ul>
+                    </li> -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                    
+                    
+                     
+                        <a href="/send"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"> <i class="menu-icon fa fa-table"></i>Making Order</span></a>
+                       
+                    </li> -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="/order"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"><i class="menu-icon fa fa-table"></i>View Products</span></a>
+                        
+                    </li> -->
+
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"> <i class="menu-icon fa fa-table"></i>Assign Contract</span></a>
+                        
+                    </li> -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user')}"> <i class="menu-icon fa fa-table"></i>Payment</span></a>
+                        
+                    </li> -->
+                    
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="/dashboard"><span class="list-label" th:if="${session.a_user.getRole().toLowerCase().equalsIgnoreCase('user') || session.a_user.getRole().toLowerCase().equalsIgnoreCase('superAdmin') }"> <i class="menu-icon fa fa-table"></i>Report</span></a>
+                        
+                    </li> -->
+
+                   <!--  <h3 class="menu-title">Icons</h3> --><!-- /.menu-title -->
+
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
+                        
+                    </li> -->
+                   <!--  <li>
+                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
+                    </li> -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a></li>
+                            <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
+                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a></li>
+                        </ul>
+                    </li> -->
+
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
+                            <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
+                        </ul>
+                    </li> -->
+                   <!--  <h3 class="menu-title">Extras</h3> --><!-- /.menu-title -->
+                   <!--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
+                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+
+       <!-- /header -->
+        <div data-th-replace="Layout/Navbar :: myNavbar"></div>
+        <!-- Header-->
+
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <link href="/boot/css/bootstrap.min.css" rel="stylesheet"/>
+        
+<style type="text/css">
+body{
+background: linear-gradient(rgba(0, 0, 0, 0.54), rgba(5, 5, 5, 0.72)), url("/images/1.jpg");
+background-size: cover;
+}
+</style>
+
+<title>Insert title here</title>
+
+<body>
+    <!-- Left Panel -->
+
+   
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+
+        <!-- Header-->
+        <header id="header" class="header">
+
+            <div class="header-menu">
+
+                <div class="col-sm-7">
+                   
+                    <div class="header-left">
+                       
+                        <div class="form-inline">
+                            <form class="search-form" >
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                            </form>
+                        </div>
+
+                       
+               
+            </div>
+
+        </header><!-- /header -->
+        <!-- Header-->
+
+        
+
+        <div class="content mt-3">
+            <div class="animated fadeIn">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">DataTable</strong>
+                                  <input type="text" id="branchuuid" name="branchid" th:value=${branchuuid} hidden>
+                            </div>
+                            <div class="card-body">
+                                <table id="stable" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>QUANTITY</th>
+                                            <!-- <th>ORDER DATE</th> -->
+                                            <th>REGISTRAR</th>
+                                            <th>SOLARENERGY</th>
+                                            <th>Actions</th>
+                               
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dtbody">
+                                     
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
+
+
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> 
+    <!-- <script src="https:/ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="Alert/alert.js"></script>	
+	<script type="text/javascript" src="Alert/jquery.validate.js"></script>	
+	<script type="text/javascript" src="js/User.js"></script>	
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="vendors/jszip/dist/jszip.min.js"></script>
+    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
+  
+  
+     
+  <script>
+  
+   $(document).ready(function () {
+        
+           findAllOrder(); 
+     }); 
+       
+     function findAllOrder(){
+    	 
+    	 var branchuuid=$('#branchuuid').val();
+    	 var order=[];
+		 var tables=$('#stable').DataTable().clear().draw(); 
+		$.ajax({
+			headers: {
+		        
+                'bfw_token': token(),
+			        
+			    },
+			
+		    type: "GET",
+		    url: olhs_url()+'/solarorders/all',
+		    success:  function(result, textStatus, jQxhr) {
+           console.log("codeee "+result.code)
+		        	if(result.code===200){
+		        	console.log(result.OBJECT);
+		        	$.each(result.OBJECT, function (i, br) {
+		        		if(br.solarenergy.branch.uuid==$('#branchuuid').val()){
+		        			order.push(br);
+		        		}
+		        	});
+		        	console.log(order);
+		            $.each(order, function (i, br) {
+		            var tables=$('#stable').DataTable();
+		              
+		          	var l='';
+                	l += " <ul class='icons-list' style='list-style: none'>";
+					l += "<li class='dropdown'>"
+					l += "  <a href='datatable_basic.htm#' class='dropdown-toggle' data-toggle='dropdown'><i class='fa fa-bars'></i></a>";
+					l += " <ul class='dropdown-menu dropdown-menu-right'>";
+					if(br.orderstatus=='Pending'){
+                     l+="<li><a data-toggle='tooltip'  title='Approve this order' href='javascript:void(0)' class='approve' data-id='"+br.uuid +"'><i class='zmdi zmdi-block'></i>Approve order</a></li>";       
+					}
+					l+="<a href='"+olhs_url() +"/solarorders/" +br.uuid+"/report' target='blank'   class='label label-primary' data-toggle='tooltip'  title='Print Report'><i class='zmdi zmdi-print'></i> Print</a></li>";;
+                     l+= " </ul>";
+					l+= " </li>";
+					l+= " </ul>";
+		            	tables.row.add(
+		            	[
+		            		br.quantity,
+		            		/* formatDate(br.orderdate, 'dd-MM-yyyy'), */
+		            		br.registrar.firstname,
+		            		br.solarenergy.description,
+		            		
+                            l
+                             ]	
+		            	
+		            	).draw();
+
+
+		            })
+
+		        }  else {
+		            console.log("fail get", result)
+		        } 
+		    },
+		    error: function (){
+		        console.log("ERROR", e);
+		    }
+		})
+        }
+      
+     
+     $(document).on('click','.approve', function(){
+    	 var uuid=$(this).data('id');
+    	 /* alert(uuid); */
+    	 
+    		 $.ajax({ 
+    			        
+    					headers: {
+    				        
+    	                  //'olhs_token': 'OLHS'+formatDate(new Date(), "dd-MM-yyyy"),
+    				        
+    				    },
+    					url:olhs_url()+'/solarorders/approve/'+uuid,
+    			        type : "PUT", // type of action POST || GET
+    			        dataType : 'json', // data type
+    			        data :{}, // post data || get data
+    			        contentType: 'application/json',
+    			        success : function(result, textStatus, jQxhr) {
+    			        	$("#r_Save").removeClass('disabled');
+    			        	if(result.CODE==200){
+    			     
+    			        		$.alert(result.DESCRIPTION,
+    									{
+    										type : "success",
+    										position : [ 'top-right',
+    												[ -0.42, 0 ] ],
+    									}); 
+    				        	
+    				        	$("#r_form").each(
+    									function() {
+    										this.reset();
+    									});
+    				        	 
+    				        	}else{
+
+									/*  alert("failed");  */
+    				        	}
+    				        		
+    			        	
+
+    							
+
+    						},
+    						error: function (xhr, resp, text) {
+    							console.log(xhr, resp, text);
+    							$("#r_Save").removeClass('disabled');
+    							$.alert('Error Occurred' + xhr.responseText, {
+    								type: "danger",
+    								position: ['top-right',
+    									[-0.42, 0]
+    								],
+    							});
+
+    						}
+    					});
+
+    			
+    				
+    			
+
+    	})
+    		
+    
+     
+     
+        </script>
+          
+
+</body>
+</html>
+        
+        
+        

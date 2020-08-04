@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+
+<meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    
+    
+    <link href="/boot/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+ <script src="/https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/boot/js/bootstrap.min.js"></script>
+ 
+    <div class="row">
+        
+        <div class="col-md-6 col-md-offset-3">
+            
+    <div class = "panel panel-default">
+        
+         <div class = "panel-heading">
+             <h1>Create SolarEnergy</h1>
+         </div>
+         <div class = "panel-body">
+                   
+            <form id="r_form" required="required">
+  <div class="form-group">
+  
+      <Label>Description</Label>
+      <input  class="form-control"  required="required"  id="r_description"/>
+  </div>
+    <div class="form-group">
+    
+        <Label>Solar Capacity</Label>
+        <input  name="solarcapacity" id="r_capacity" class="form-control" required="required"/>
+  </div> 
+  <div class="form-group">
+    
+    <Label>Solar Quantity</Label>
+    
+    <input  name="solarquantity" id="r_quantity" class="form-control" required="required"/>
+    
+  </div> 
+      
+   <div class="form-group">
+       <Label>Solar Quality</Label>
+       <input class="form-control"   name="solarquality" id="r_quality" required="required"/>
+  </div>          
+ 
+  <div class="form-group">
+       <Label>Cost</Label>
+       <input class="form-control"   id="r_cost" required="required"/>
+  </div>     
+ 
+     <Label>Branch</Label>
+    <select class="form-control" id="r_branch">
+    
+    
+    </select>
+ 
+      <input type="button"   class="btn btn-default"    id="r_save"  value="submit" />
+</form>
+  </div>
+      </div>
+   
+</div>
+        </div>
+        
+    
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="Alert/alert.js"></script>	
+		<script type="text/javascript" src="Alert/jquery.validate.js"></script>	
+		<script type="text/javascript" src="js/User.js"></script>	
+
+        <script>
+		
+		function olhs_url() {
+		      var olhs_url = "http://localhost:4001";
+
+		      return olhs_url;
+		    }
+		 function myfunction(){
+				var x=document.getElementById("r_password");
+				
+				if(x.type==="password"){
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+			}
+		
+		 $(document).on('click','#r_save', function(){
+			alert("saved");
+			 var description= $('#r_description').val();
+			 var solarquality= $('#r_quality').val();
+			 var quantity= $('#r_quantity').val();
+			 var solarcapacity= $('#r_capacity').val();
+			 var cost         = $('#r_cost').val();
+			 var role ='user';
+			 if($("#r_form").valid()){
+				 $("#r_Save").addClass('disabled');
+				 
+				 var SolarEnergy={
+						 description: description,
+						 solarquality: solarquality,
+						 quantity: quantity,
+						 solarcapacity: solarcapacity,
+						 cost         : cost,
+						 branchuuid: $("#r_branch").val(),
+				         applicationName:'OLHS',
+				         role: role,
+				         category: $('#r_Category').val(),
+				 }
+				 console.log(SolarEnergy);
+				 $.ajax({ 
+				        
+						headers: {
+					        
+		                   //'olhs_token': 'OLHS'+formatDate(new Date(), "dd-MM-yyyy"),
+					        'doneBy':role
+					    },
+						url:olhs_url()+'/solarenergy/save'
+				        type : "POST", // type of action POST || GET
+				        dataType : 'json', // data type
+				        data : JSON.stringify(SolarEnergy), // post data || get data
+				        contentType: 'application/json',
+				        success : function(result, textStatus, jQxhr) {
+				        	$("#r_Save").removeClass('disabled');
+				        	if(result.CODE==200){
+				     
+				        		$.alert(result.DESCRIPTION,
+										{
+											type : "success",
+											position : [ 'top-right',
+													[ -0.42, 0 ] ],
+										}); 
+					        	
+					        	$("#r_form").each(
+										function() {
+											this.reset();
+										});
+					        	 
+					        	}else{
+					        		 $.alert(result.DESCRIPTION,
+											{
+												type : "danger",
+												position : [ 'top-right',
+														[ -0.42, 0 ] ],
+											}); 
+					        	}
+					        		
+				        	
+
+								
+
+							},
+							error: function (xhr, resp, text) {
+								console.log(xhr, resp, text);
+								$("#r_Save").removeClass('disabled');
+								$.alert('Error Occurred' + xhr.responseText, {
+									type: "danger",
+									position: ['top-right',
+										[-0.42, 0]
+									],
+								});
+
+							}
+						});
+
+				
+					
+				
+
+		 }
+			
+		 });
+		 
+		 
+		 function RetrieveBranches() {
+				
+				$.ajax({
+					url: olhs_url() + '/branchs',
+					type: "GET", // type of action POST || GET
+					dataType: 'json', // data type
+			
+					data: {}, // post data || get data
+					contentType: 'application/json',
+					success: function (result, textStatus, jQxhr) {
+						console.log(result);
+						if (result.code==200) {
+						//	 console.log(result)
+						   
+						var branches=result.OBJECT;
+						 
+							
+							  $('#r_branch').children('option').remove();
+								$.each(branches, function (i, item) {
+									$('#r_branch').append($('<option></option>', {
+										value: item.uuid,
+										text: item.branchname
+									}));
+								});
+				        		
+								
+						
+						} else {
+							
+							$.alert(result.DESCRIPTION, {
+								type: "danger",
+								position: ['center',
+									[-0.42, 0]
+								],
+							});
+						}
+					},
+					error: function (xhr, resp, text) {
+						console.log(xhr, resp, text);
+						$.alert('Error Occurred', {
+							type: "danger",
+							position: ['center',
+								[-0.42, 0]
+							],
+						});
+
+					}
+				})
+
+			}
+		
+		
+		</script>
+
+</body>
+</html>

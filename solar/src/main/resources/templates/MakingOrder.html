@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="row" style="margin-top: 80px; margin-left: 80px;">
+        
+<div class="col-md-6 col-md-offset-3">
+            
+<div class = "panel panel-default">
+        
+<div class = "panel-heading" >
+<h1>SOLAR ENERGY PICTURES</h1>
+</div>
+<div class="card card-profile shadow mt--300">
+<div class="px-4">
+<div class="row justify-content-center">
+<div class="col-lg-3 order-lg-2">
+<div class="card-profile-image" id="profilePic">
+
+</div>
+</div>
+</div>
+          
+<div class="mt-2 py-3  m-2">
+<div class="row justify-content-center" style="margin-bottom: 15px;">
+<h4 style="color: #6cb33e"><i class="zmdi zmdi-account"></i>Solar Energy</h4>
+
+</div>
+<div class="my-2 py-2">
+<div class="row lm-5" id="solarr">
+
+
+
+ </div>            
+</div>
+</div>
+</div>
+</div>
+<div class="form-group col-md-12">
+<div class="col-md-12">
+ <div class="form-actions">
+<a href="enlist"  class="btn btn-primary pull-right" id="r_details"> <i class="zmdi zmdi-save"></i><span data-localize="save">Details</span></a>
+<a href="#" class="btn btn-default pull-left" data-dismiss="modal" data-localize="cancel">Send Order</a>
+</div>
+</div>
+</div>
+  
+</div>
+</div>
+</div>
+
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>   -->      
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="Alert/alert.js"></script>	
+<script type="text/javascript" src="Alert/jquery.validate.js"></script>	
+<!--<script src="path/to/your/jquery.min.js"></script>-->
+<!-- <script src="path/to/your/jquery.ui.min.js"></script> -->
+<!--<script  src="../../Jquery/prettify.js"></script>-->
+   <script>
+        function olhs_url() {
+		      var olhs_url = "http://localhost:4001";
+
+		      return olhs_url;
+		    }
+
+          var object = {};
+        $(function (){
+            // alert(sessionStorage.getItem('a_registrant'));
+                 
+            $.ajax({
+              url: olhs_url() + "/solarenergy/all",
+              type: "GET", // type of action POST || GET
+              headers: {
+      	 /*  'olhs_token':'OLHS'+formatDate(new Date(), "dd-MM-yyyy"),   */
+      	
+              },
+              success: function (result, textStatus, jQxhr) {
+            	  console.log("saved");
+            	  solarenergys(result.OBJECT);
+                if (result.CODE == 200) {
+                  object=result.OBJECT;
+                  console.log(result.OBJECT)
+                  
+                } else {
+                  $.alert('Error Occurred ' + result.DESCRIPTION, {
+                    type: "danger",
+                    position: ['top-right',
+                      [-0.42, 0]
+                    ],
+                  });
+                }
+              },
+              error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+
+                $.alert('Error Occurred' + xhr.responseText, {
+                  type: "danger",
+                  position: ['top-right',
+                    [-0.42, 0]
+                  ],
+                });
+              }
+            });
+            
+        });
+        var defaultImg = "'images/default.jpg'"; 
+    
+        function solarenergys(solarenergy){
+    if (solarenergy.length > 0) {
+    	solarenergy.forEach(solar => {
+        var imgUrl = olhs_url() + "/pictures/se/" + solar.uuid;
+        $("#solarr").append(
+                '<div class="panel panel-primary col-md-4" style="width: 18rem;" id="pa"><img width="350px;" height="100px;" style="margin-bottom:5px;" class="card-img-top col-md-12 img-thumbnail" src="' +
+                imgUrl + '" onerror="this.onerror=null;this.src='+defaultImg+';"><div class="panel-body" style="margin-top:60px;"><h5 style="margin-bottom:8px;">'+
+                solar.description +
+                '</h5><a id="detail" href="#" data-id='+solar.uuid+ ' style="margin-top:20px;" class="label label-primary btn-sm">Details</a><a href="#" data-id='+solar.uuid+ ' id="request" style="margin-right:20px; margin-left:5px; margin-top:20px;" class="label label-primary btn-xs">Send Request</a></div></div>'
+              )
+            });
+    } else {
+     // $("#products").append(' <div class="card shadow p-3"> Lawyers not yet available</div>');
+    }
+  }
+        
+        $(document).on('click','#request', function(){
+        	var uuid=$(this).data('id').val();
+        	alert(uuid);
+        }
+		
+      </script>
+</body>
+</html>

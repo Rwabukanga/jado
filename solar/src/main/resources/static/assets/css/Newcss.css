@@ -1,0 +1,100 @@
+
+
+body{
+	margin=0;
+	padding=0;
+	
+}
+
+.site-content{
+	height: 100vh;
+	width: 100wh;
+	background-image:linear-gradient(rgba(0, 0, 0, 0.54), rgba(5, 5, 5, 0.72)), url("/images/solar10.jpg");
+	background-size: cover;
+	background-repeat: no repeat;
+	background-position: center;
+	
+}
+
+*{
+	font-family: Aclonica;
+	color:white;
+}
+
+nav{
+	width: 100vw;
+	height: 8vh;
+	display: flex;
+	align-items: center;
+	
+}
+
+.brand{
+	font-size:4vw;
+	font-family: Berkiche Swash;
+	margin-left: 5vw;
+	margin-top: 1vw;
+}
+
+.nav-item {
+	margin-top: 6vh;
+	padding: 2vw;
+	font-size: 1vw;
+}
+
+.container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10%;
+}
+
+.content{
+	text-align: center;
+}
+
+
+.content h1,h2{
+	
+	padding: 0;
+	margin: 0;
+	text-shadow: 10px 20px 60px black;
+}
+
+.content h2{
+	font-size: 6vw;
+	color: green;
+}
+
+.content h1{
+	font-size: 6vw;
+	color: blue;
+}
+
+a{
+	padding: 2vh 2vw;
+	margin: 2vh 2vw;
+	border-radius: 50px;
+	border: 2px solid #FF9900;
+	background-color: transparent;
+	box-shadow: 0px 15px 20px black;
+	font-size: 1.3vw;
+}
+
+a:hover{
+	background-color: #FF9900;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,68 @@
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+body{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	background-color: white;
+	background: url(photo1.jpg) no-repeat;
+	background-size: cover;
+	
+}
+.login-box{
+	width: 280px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: black;
+}
+
+.login-box h1{
+	float: left;
+	font-size: 40px;
+	border-bottom: 6px solid #4caf50;
+	margin-bottom: 50px;
+	padding: 13px 0
+}
+.fas fa-user-tie {
+	width: 20px;
+	height: 20px;
+	
+}
+.textBox{
+	width: 100%;
+	overflow: hidden;
+	font-size: 20px;
+	padding: 10px 0;
+	margin: 2px 0;
+	border-bottom: 3px solid #4caf50;
+	background-color: white;
+}
+.textBox i{
+	width: 50px;
+	float: left;
+	text-align: center;
+}
+.textBox input{
+	border: none;
+	outline: none;
+	background: none;
+	color: gray;
+	font-size: 20px;
+	width: 100%;
+	float: left;
+	margin: 0 10px;
+}
+.btn btn-default{
+	width: 100px;
+	height: 60px;
+	background-color: blue; 
+	border: none;
+	color: white;
+	padding: 1px;
+	font-size: 20px;
+	cursor: pointer;
+	margin: 15px 0;
+	
+}
