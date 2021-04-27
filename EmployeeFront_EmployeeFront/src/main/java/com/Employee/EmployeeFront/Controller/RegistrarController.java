@@ -39,11 +39,9 @@ import com.Employee.EmployeeFront.Utility.ResponseBean;
 
 
 
-
-
 @RestController
 @CrossOrigin
-@RequestMapping("/registrar")
+@RequestMapping(value="/registrar")
 public class RegistrarController {
 	
 	@Autowired
@@ -69,7 +67,7 @@ public class RegistrarController {
 	*/
 	
 	
-	@CrossOrigin
+	
 	@RequestMapping(value="/save", method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> createRegistrar(HttpServletRequest request, @RequestBody Registrant reg) {
 		ResponseBean rb = new ResponseBean();
@@ -97,8 +95,8 @@ public class RegistrarController {
 			           user.setPhone(reg.getPhone());
 			           user.setUsername(reg.getUsername());
 			           user.setPassword(reg.getPassword());
-			           user.setRole("user");
-//			           user.setCategory(reg.getCategory());
+			        /*   user.setRole("user");*/
+/*			           user.setCategory(reg.getCategory());*/
 			           user.setDob(reg.getDob());
 			            /*user.setUsername(reg.get);
 			            user.setPassword(regAdmin.getPassword());*/
@@ -157,7 +155,7 @@ public class RegistrarController {
 			           user.setUsername(reg.getUsername());
 			           user.setPassword(reg.getPassword());
 			           user.setRole("Admin");
-			           //user.setCategory(reg.getCategory());
+			           /*user.setCategory(reg.getCategory());*/
 			           user.setDob(reg.getDob());
 			            /*user.setUsername(reg.get);
 			            user.setPassword(regAdmin.getPassword());*/
@@ -614,121 +612,6 @@ public static class RegAdmin {
 	
 }
 
-/*public static class SystemUser{
-	private String username;
-	private String firstname;
-	private String lastname;
-	private String role;
-	private String email;
-	private String password;
-	@Enumerated(EnumType.STRING)
- 	private Gender gender;
-	private String phonenumber;
-	private String objectName;
-	private String objectId;
-	private String applicationName;
-	private Date dateofbirth;
-	private String idnumber;
-	private String category;
-	private Registrant registrar;
-	
-	
-	
-	public Registrant getRegistrar() {
-		return registrar;
-	}
-	public void setRegistrar(Registrant registrar) {
-		this.registrar = registrar;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	public String getFirstname() {
-		return firstname;
-	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-	public String getLastname() {
-		return lastname;
-	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getObjectName() {
-		return objectName;
-	}
-	public void setObjectName(String objectName) {
-		this.objectName = objectName;
-	}
-	public String getObjectId() {
-		return objectId;
-	}
-	public void setObjectId(String objectId) {
-		this.objectId = objectId;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public Gender getGender() {
-		return gender;
-	}
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-	public String getApplicationName() {
-		return applicationName;
-	}
-	public void setApplicationName(String applicationName) {
-		this.applicationName = applicationName;
-	}
-	public Date getDateofbirth() {
-		return dateofbirth;
-	}
-	public void setDateofbirth(Date dateofbirth) {
-		this.dateofbirth = dateofbirth;
-	}
-	public String getIdnumber() {
-		return idnumber;
-	}
-	public void setIdnumber(String idnumber) {
-		this.idnumber = idnumber;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	
 
-}*/
 
 }

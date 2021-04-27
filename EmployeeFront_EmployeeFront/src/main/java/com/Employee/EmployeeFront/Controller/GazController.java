@@ -1,15 +1,9 @@
 package com.Employee.EmployeeFront.Controller;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,13 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.Employee.EmployeeFront.Domain.Branch;
 import com.Employee.EmployeeFront.Domain.Branchuser;
 import com.Employee.EmployeeFront.Domain.Gaz;
-import com.Employee.EmployeeFront.Domain.Gazorder;
 import com.Employee.EmployeeFront.Service.Branchservice;
 import com.Employee.EmployeeFront.Service.BranchuserService;
 import com.Employee.EmployeeFront.Service.GazService;
@@ -36,6 +26,7 @@ import com.Employee.EmployeeFront.Utility.ResponseBean;
 
 @Controller
 @RequestMapping(value="/gaz")
+@CrossOrigin
 public class GazController{
 
 	@Autowired
@@ -49,17 +40,22 @@ public class GazController{
 	
 	@CrossOrigin
 	@RequestMapping(value="/save/{uuid}", method=RequestMethod.POST,  consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> createGazorder(HttpServletRequest request,@RequestBody Gaz gaz,@PathVariable String uuid){
+	public ResponseEntity<Object> createGazorder(HttpServletRequest request,@RequestBody InnerGaz gaz,@PathVariable String uuid){
 		ResponseBean rb = new ResponseBean();
 		try {
 			
 			Optional<Branchuser> branch = branchuserservice.findByUuid(uuid);
 			Branchuser br = branch.get();
-			gaz.setBranchuser(br);
-			gazservice.createGaz(gaz);
+			Gaz gg = new Gaz();
+ 			gg.setBranchuser(br);
+			gg.setDescription(gaz.getDescription());
+			gg.setQuality(gaz.getQuality());
+			gg.setQuantity(gaz.getQuantity());
+			gg.setCost(gaz.getCost());
+			gazservice.createGaz(gg);
 			rb.setCode(Messages.SUCCESS_CODE);
 			rb.setDescription(Messages.save);
-			rb.setObject(gaz);
+			rb.setObject(gg);
 			
 		}catch(Exception ex) {
 			rb.setCode(Messages.ERROR_CODE);
@@ -69,7 +65,7 @@ public class GazController{
 		return new ResponseEntity<Object>(rb, HttpStatus.OK);
 	}
 	
-	@CrossOrigin
+	/*@CrossOrigin
 	@RequestMapping(value="/savegaz" ,method= RequestMethod.POST)
 	public ResponseEntity<Object> event_self_reg (HttpServletRequest request,@RequestParam Map<String, String> params,HttpSession session,@RequestParam(name = "attachment-0", required = false) MultipartFile file){
 	
@@ -143,7 +139,7 @@ public class GazController{
 		
 		
 		return new ResponseEntity<Object>(rb, HttpStatus.OK);
-	}
+	}*/
 	
 	@CrossOrigin
 	@RequestMapping(value="/all", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
@@ -239,4 +235,38 @@ public class GazController{
 		return new ResponseEntity<Object>(rb,HttpStatus.OK);
 	}
 	
+	public static class InnerGaz{
+		
+		private String quality;
+		private int quantity;
+		private String description;
+		private double cost;
+		public String getQuality() {
+			return quality;
+		}
+		public void setQuality(String quality) {
+			this.quality = quality;
+		}
+		public int getQuantity() {
+			return quantity;
+		}
+		public void setQuantity(int quantity) {
+			this.quantity = quantity;
+		}
+		public String getDescription() {
+			return description;
+		}
+		public void setDescription(String description) {
+			this.description = description;
+		}
+		public double getCost() {
+			return cost;
+		}
+		public void setCost(double cost) {
+			this.cost = cost;
+		}
+		
+		
+		
+	}
 }

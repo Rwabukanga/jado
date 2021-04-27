@@ -1,4 +1,4 @@
-package com.Employee.EmployeeFront.Controller;
+/*package com.Employee.EmployeeFront.Controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -61,3 +61,4 @@ public class ImageController {
 		return ResponseEntity.ok().headers(headers).contentLength(file.length()).contentType(MediaType.IMAGE_PNG).body(new InputStreamResource(bis));
 	}
 }
+*/

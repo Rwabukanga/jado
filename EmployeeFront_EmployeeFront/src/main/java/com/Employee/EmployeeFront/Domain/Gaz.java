@@ -21,7 +21,7 @@ public class Gaz {
 	private int quantity;
 	private String description;
 	private double cost;
-	private String file;
+	/*private String file;*/
 	
 	@ManyToOne
 	private Branchuser branchuser;
@@ -63,12 +63,12 @@ public class Gaz {
 		this.cost = cost;
 	}
 	
-	public String getFile() {
+	/*public String getFile() {
 		return file;
 	}
 	public void setFile(String file) {
 		this.file = file;
-	}
+	}*/
 	public Branchuser getBranchuser() {
 		return branchuser;
 	}

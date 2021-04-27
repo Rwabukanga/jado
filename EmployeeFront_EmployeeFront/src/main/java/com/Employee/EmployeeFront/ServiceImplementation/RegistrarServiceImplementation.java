@@ -41,7 +41,7 @@ public class RegistrarServiceImplementation implements RegistrarService {
 		return regdao.findAll();
 	}
 
-	@Override
+	/*@Override
 	public Registrant buildRegistrant(RegAdmin regAdmin) {
 		Registrant registrant=new Registrant();
 		try {
@@ -61,7 +61,7 @@ public class RegistrarServiceImplementation implements RegistrarService {
 		}
 		
 		return registrant;
-	}
+	}*/
 
 	@Override
 	public Category checkRegistrarCategory(String registrant) {

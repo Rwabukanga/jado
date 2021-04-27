@@ -17,7 +17,7 @@ public interface RegistrarService {
 	public Optional<Registrant> findByid(int id);
 	public Optional<Registrant> findByUuid(String uuid);
 	public List<Registrant> findAll();
-	public Registrant buildRegistrant(RegistrarController.RegAdmin regAdmin);
+	/*public Registrant buildRegistrant(RegistrarController.RegAdmin regAdmin);*/
 	public Category checkRegistrarCategory(String registrant);
 	
 	

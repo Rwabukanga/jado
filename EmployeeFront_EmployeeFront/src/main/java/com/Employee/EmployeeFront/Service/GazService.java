@@ -3,9 +3,12 @@ package com.Employee.EmployeeFront.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.Employee.EmployeeFront.Domain.District;
 import com.Employee.EmployeeFront.Domain.Gaz;
 
+@Service
 public interface GazService {
 
 	public void createGaz(Gaz gaz);
