@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.Employee.EmployeeFront.Service.UssdService;
 
+import ch.qos.logback.classic.Level;
+
 @RequestMapping("/ussd")
 @Controller
 public class UssdController {
@@ -115,7 +117,7 @@ public static  String[] GetMenu(String msisdn, String sessionid, String newreq, 
 			/*String level = GetLevel(msisdn, sessionid);*/
 			
 			String getmenuquery = null;
-			
+			String level = GetLevel(msisdn, sessionid);
 			/* New Request*/
 			
 			if (newreq.equals("1")) {
@@ -129,7 +131,7 @@ public static  String[] GetMenu(String msisdn, String sessionid, String newreq, 
 		     	
 			} else if (newreq.equals("0")) {
 				
-				String level = GetLevel(msisdn, sessionid);
+				
 				
 				if(level.equals("1") && input.matches("[1-4]+")) {
 					
@@ -254,7 +256,7 @@ public static  String[] GetMenu(String msisdn, String sessionid, String newreq, 
 					updatequery =  "UPDATE transactiontable SET input = '"+input+"', lang = '"+Lang+"', level = '"+level+"' WHERE msisdn = '"+msisdn+"' AND sessionid = '"+sessionid+"';";
 					getmenuquery = "Select free_flow, msg, action from menutable where level = '"+level+"' and lang = '" + Lang
 							+ "';";
-				
+					
 				}else if (level.equals("1#2#1#1") && input.matches("[1-3]+")) {
 
 					
@@ -273,6 +275,7 @@ public static  String[] GetMenu(String msisdn, String sessionid, String newreq, 
 					updatequery =  "UPDATE transactiontable SET input = '"+input+"', lang = '"+Lang+"', level = '"+level+"' WHERE msisdn = '"+msisdn+"' AND sessionid = '"+sessionid+"';";
 					getmenuquery = "Select free_flow, msg, action from menutable where level = '"+level+"' and lang = '" + Lang
 							+ "';";
+					
 				}else if (level.equals("1#2#1#1#1") && input.matches("[1]+")) {
 
 					
@@ -291,6 +294,7 @@ public static  String[] GetMenu(String msisdn, String sessionid, String newreq, 
 					updatequery =  "UPDATE transactiontable SET input = '"+input+"', lang = '"+Lang+"', level = '"+level+"' WHERE msisdn = '"+msisdn+"' AND sessionid = '"+sessionid+"';";
 					getmenuquery = "Select free_flow, msg, action from menutable where level = '"+level+"' and lang = '" + Lang
 							+ "';";
+				
 				} else if (level.equals("1#2#1#1#1#1") && input.matches("[1]+")) {
 
 					
@@ -314,13 +318,16 @@ public static  String[] GetMenu(String msisdn, String sessionid, String newreq, 
 
 			}
 			ResultSet rs = st.executeQuery(getmenuquery);
-
+              
 			if (rs.next()) {
+				
 				result[0] = rs.getString(1);
 				result[1] = rs.getString(2);
 				result[2] = rs.getString(3);
 				    
-
+          if (level.equals("1#1#1#1#1")) {
+        	  result[1] +=" of 6000rwf";
+          }
 				System.out.println("Data" + result[0] + "|" + result[1] + "|" + result[2]);
 			}
 

@@ -3,8 +3,11 @@ package com.Employee.EmployeeFront.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.Employee.EmployeeFront.Domain.SystemUser;
 
+@Service
 public interface ISystemUserService {
 
 	public String create(SystemUser user);

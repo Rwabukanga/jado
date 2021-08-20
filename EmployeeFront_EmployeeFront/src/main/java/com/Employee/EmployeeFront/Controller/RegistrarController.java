@@ -50,22 +50,24 @@ public class RegistrarController {
 	/*@Autowired
 	private JavaEmail javaemail;*/
 	
-	@Autowired
-	private Branchservice bservice;
-	
-	
-	@Autowired
-	private DistrictService districtservice;
-	
-	@Autowired
-	private ProvinceService provinceservice;
-	
+	/*
+	 * @Autowired private Branchservice bservice;
+	 * 
+	 * 
+	 * @Autowired private DistrictService districtservice;
+	 * 
+	 * @Autowired private ProvinceService provinceservice;
+	 */
 	@Autowired
 	private ISystemUserService systemservice;
 	/*@Autowired
     private JavaMailSender javaMailSender;
 	*/
-	
+	 @Autowired
+	    //@Qualifier("clientService")
+	    public void setISystemUserService(ISystemUserService systemservice){
+	        this.systemservice=systemservice;
+	    }
 	
 	
 	@RequestMapping(value="/save", method = RequestMethod.POST , consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -388,7 +390,7 @@ public class RegistrarController {
 	
 	
 	
-	/*@CrossOrigin
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET, value= "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> findOne(HttpServletRequest request, @PathVariable int id) {
 
@@ -416,7 +418,7 @@ public class RegistrarController {
 		return new ResponseEntity<Object>(rb, HttpStatus.OK);
 	
 }
-*/
+
 /*@CrossOrigin
 @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}")
 public ResponseEntity<Object> delete(HttpServletRequest request, @PathVariable String uuid, @PathVariable int id) {
